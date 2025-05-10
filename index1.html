@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reema | Cloud Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4D44DB;
+            --dark: #0F172A;
+            --darker: #020617;
+            --light: #F8FAFC;
+            --lighter: #FFFFFF;
+            --accent: #FF6584;
+            --text: #E2E8F0;
+            --text-secondary: #94A3B8;
+            --card-bg: #1E293B;
+            --nav-bg: rgba(15, 23, 42, 0.9);
+            --azure-blue: #0078D4;
+            --aws-orange: #FF9900;
+            --google-blue: #4285F4;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: default;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        body.light-mode {
+            --dark: #f8fafc;
+            --darker: #e2e8f0;
+            --light: #0f172a;
+            --lighter: #020617;
+            --text: #1e293b;
+            --text-secondary: #475569;
+            --card-bg: #ffffff;
+            --nav-bg: rgba(248, 250, 252, 0.9);
+            --primary: #4D44DB;
+            --accent: #FF6584;
+        }
+        
+        a, button, input, .theme-toggle, .nav-link {
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Animated Gradient Background */
+        .gradient-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(270deg, #0F172A, #1E293B, #334155);
+            background-size: 400% 400%;
+            animation: GradientBackground 15s ease infinite;
+        }
+        
+        @keyframes GradientBackground {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        
+        /* Floating Shapes Animation */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            opacity: 0.3;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            animation: float 15s infinite linear;
+        }
+        
+        .shape:nth-child(1) {
+            background: var(--primary);
+            width: 300px;
+            height: 300px;
+            top: 20%;
+            left: 10%;
+            animation-duration: 20s;
+        }
+        
+        .shape:nth-child(2) {
+            background: var(--accent);
+            width: 400px;
+            height: 400px;
+            top: 60%;
+            left: 70%;
+            animation-duration: 25s;
+        }
+        
+        .shape:nth-child(3) {
+            background: var(--azure-blue);
+            width: 250px;
+            height: 250px;
+            top: 30%;
+            left: 80%;
+            animation-duration: 15s;
+        }
+        
+        .shape:nth-child(4) {
+            background: var(--aws-orange);
+            width: 350px;
+            height: 350px;
+            top: 70%;
+            left: 20%;
+            animation-duration: 30s;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, 50px) rotate(90deg); }
+            50% { transform: translate(100px, 0) rotate(180deg); }
+            75% { transform: translate(50px, -50px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 0 15px 15px 0;
+            padding: 1.5rem 1rem;
+            z-index: 100;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar:hover {
+            transform: translateY(-50%) translateX(5px);
+        }
+        
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-link span {
+            font-size: 0.8rem;
+            opacity: 0;
+            position: absolute;
+            left: 120%;
+            white-space: nowrap;
+            background-color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            transition: opacity 0.3s ease, left 0.3s ease;
+        }
+        
+        .nav-item:hover .nav-link i {
+            color: var(--accent);
+            transform: scale(1.2);
+        }
+        
+        .nav-item:hover .nav-link span {
+            opacity: 1;
+            left: 110%;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+        }
+        
+        .theme-toggle i {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.8), rgba(77, 68, 219, 0.8));
+            color: white;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .profile-pic:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.2);
+            color: var(--accent);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-3px);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 5rem 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .about-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .about-text {
+            text-align: left;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .about-text p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        .about-highlights {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .highlight-item {
+            background-color: var(--darker);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 200px;
+            transition: transform 0.3s ease;
+        }
+        
+        .highlight-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .highlight-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background-color: var(--primary);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            animation: slideIn 0.5s ease-in-out;
+            animation-fill-mode: both;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            padding-right: calc(50% + 30px);
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            padding-left: calc(50% + 30px);
+            text-align: left;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 10px rgba(255, 101, 132, 0.5);
+        }
+        
+        .timeline-content {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+        
+        .timeline-date {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .timeline-company {
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-description {
+            list-style-type: none;
+        }
+        
+        .timeline-description li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .timeline-description li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            justify-items: center;
+        }
+        
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .project-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.1), transparent);
+            z-index: 0;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-image {
+            height: 200px;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5));
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+            position: relative;
+            text-align: left;
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .project-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-description {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        
+        .tech-tag {
+            background-color: var(--darker);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .tech-tag:hover {
+            transform: translateY(-3px);
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            justify-items: center;
+        }
+        
+        .skill-item {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 180px;
+        }
+        
+        .skill-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--primary);
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-item:hover .skill-icon {
+            transform: scale(1.2);
+        }
+        
+        .skill-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        /* Certificates Section */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            justify-items: center;
+        }
+        
+        .certificate-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            max-width: 400px;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .certificate-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--accent);
+        }
+        
+        .certificate-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .certificate-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .certificate-issuer {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .certificate-date {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        .certificate-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .certificate-link:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        /* Education Section */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            justify-items: center;
+        }
+        
+        .education-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            max-width: 400px;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .education-card::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .education-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .education-degree {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .education-school {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .education-duration {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .education-details {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .education-details span:last-child {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--darker);
+            color: var(--text);
+            text-align: center;
+            padding: 3rem 0;
+            position: relative;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .timeline-item:nth-child(even) {
+            animation-name: slideInRight;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateY(-50%) translateX(-80%);
+            }
+            
+            .sidebar:hover {
+                transform: translateY(-50%) translateX(-75%);
+            }
+            
+            .nav-link span {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .about-text {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: 50px;
+                padding-right: 0;
+                text-align: left;
+            }
+            
+            .timeline-dot {
+                left: 9px;
+            }
+            
+            .projects-grid,
+            .certificates-grid,
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-container {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .sidebar {
+                bottom: 0;
+                top: auto;
+                left: 50%;
+                transform: translateX(-50%) translateY(80%);
+                width: 90%;
+                border-radius: 15px 15px 0 0;
+                padding: 1rem;
+            }
+            
+            .sidebar:hover {
+                transform: translateX(-50%) translateY(75%);
+            }
+            
+            .nav-list {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-content {
+                padding: 0 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .certificate-card,
+            .education-card,
+            .project-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<style>
+  /* 3D Animated Grid Background */
+  .three-d-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    perspective: 1000px;
+  }
+
+  .grid-structure {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: 
+      linear-gradient(rgba(108, 99, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(108, 99, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform-style: preserve-3d;
+    animation: gridMove 40s linear infinite;
+    transform: rotateX(60deg) rotateZ(45deg) translateZ(-100px);
+  }
+
+  .moving-line {
+    position: absolute;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 101, 132, 0.6), 
+      transparent);
+    height: 1px;
+    transform-origin: left center;
+    animation: lineMove 15s linear infinite;
+    filter: drop-shadow(0 0 5px rgba(255, 101, 132, 0.8));
+  }
+
+  @keyframes gridMove {
+    0% { transform: rotateX(60deg) rotateZ(45deg) translateZ(-100px) translateY(0); }
+    100% { transform: rotateX(60deg) rotateZ(45deg) translateZ(-100px) translateY(-50px); }
+  }
+
+  @keyframes lineMove {
+    0% { 
+      transform: rotateZ(45deg) translateX(-100%) scaleX(0.5);
+      opacity: 0;
+    }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { 
+      transform: rotateZ(45deg) translateX(100%) scaleX(0.5);
+      opacity: 0;
+    }
+  }
+
+  /* Content protection */
+  header, section, footer {
+    position: relative;
+    z-index: 10;
+    background: rgba(15, 23, 42, 0.85); /* Slightly darken content areas */
+    backdrop-filter: blur(2px);
+  }
+</style>
+
+<!-- Add this right after opening <body> tag -->
+<div class="three-d-background">
+  <div class="grid-structure"></div>
+  <div class="moving-line" style="top: 20%; width: 100%; animation-delay: 0s;"></div>
+  <div class="moving-line" style="top: 40%; width: 80%; animation-delay: 3s;"></div>
+  <div class="moving-line" style="top: 60%; width: 120%; animation-delay: 6s;"></div>
+  <div class="moving-line" style="top: 80%; width: 90%; animation-delay: 9s;"></div>
+</div>
+<body>
+    <!-- Animated Background -->
+    <div class="gradient-background"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="#about" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>About</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#experience" class="nav-link">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Experience</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#projects" class="nav-link">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#skills" class="nav-link">
+                    <i class="fas fa-code"></i>
+                    <span>Skills</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#certificates" class="nav-link">
+                    <i class="fas fa-certificate"></i>
+                    <span>Certificates</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#education" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Education</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- Replace with your direct Imgur link -->
+                <img src="https://i.imgur.com/3OqaYVq.jpeg" 
+                     alt="Reema's Profile Picture" 
+                     class="profile-pic"
+                     width="150"
+                     height="150">
+                <!-- Rest of your header content -->
+            </div>
+        </div>
+    </header>
+                <h1>Reema</h1>
+                <p class="tagline">Passionate Cloud Engineer | AWS & Azure Specialist | Serverless Architect</p>
+
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/reema12/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Reema9915/" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="mailto:Parikumar115588@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 9915038605</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Phagwara, Punjab</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>I'm a passionate Cloud Engineer specializing in AWS and Azure infrastructure and serverless architectures, dedicated to building scalable, efficient, and cost-effective cloud solutions that drive business innovation.</p>
+                
+                <div class="about-text">
+                    <div>
+                        <p>During my summer training at GOKBORU, I gained hands-on experience deploying and managing AWS environments using services like EC2, Lambda, and VPC to create scalable and secure cloud infrastructures. I optimized data storage solutions using S3, RDS, and DynamoDB, implementing best practices for performance and cost efficiency.</p>
+                        <p>My expertise extends to real-time monitoring systems, demonstrated by my coastal erosion monitoring project that leveraged AWS IoT Core and serverless architecture for seamless data collection and analysis.</p>
+                    </div>
+                    <div>
+                        <p>I'm proficient in containerization with Docker and orchestration with Kubernetes, currently expanding my knowledge through specialized certifications like Google Kubernetes Engine: Workloads and Microsoft Azure Administrator (AZ-104).</p>
+                        <p>What sets me apart is my ability to bridge technical solutions with business needs, ensuring that cloud implementations not only perform optimally but also align with organizational goals and budget constraints.</p>
+                    </div>
+                </div>
+                
+                <div class="about-highlights">
+                    <div class="highlight-item">
+                        <div class="highlight-icon"><i class="fab fa-aws"></i></div>
+                        <h4>AWS Specialist</h4>
+                        <p>EC2, Lambda, S3, DynamoDB</p>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-icon"><i class="fab fa-microsoft"></i></div>
+                        <h4>Azure Administrator</h4>
+                        <p>AZ-104 Certified</p>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-icon"><i class="fas fa-server"></i></div>
+                        <h4>Serverless Architect</h4>
+                        <p>IoT Core, CloudWatch</p>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-icon"><i class="fas fa-project-diagram"></i></div>
+                        <h4>Problem Solver</h4>
+                        <p>DSA & System Design</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item" style="animation-delay: 0.1s;">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">May 2024 - July 2024</div>
+                        <h3 class="timeline-title">Cloud Engineer</h3>
+                        <div class="timeline-company">GOKBORU (Summer Training)</div>
+                        <ul class="timeline-description">
+                            <li>Gained hands-on experience in AWS cloud infrastructure, deploying EC2, Lambda, and VPCs for scalable, secure environments.</li>
+                            <li>Configured S3, RDS, and DynamoDB for efficient data management, optimizing storage with EBS, EFS, and Redshift.</li>
+                            <li>Enhanced performance with Route 53 and EMR, streamlining big data processing and DNS management.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image" style="background-color: var(--aws-orange);">
+                        <i class="fab fa-aws"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Real-Time Coastal Erosion Monitoring System</h3>
+                        <div class="project-date">July 2024</div>
+                        <p class="project-description">Deployed a real-time monitoring system using AWS IoT Core and Lambda for seamless data collection and analysis. Implemented a serverless architecture with DynamoDB and CloudWatch for scalable processing and real-time alerts, enabling informed coastal management decisions.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag"><i class="fab fa-aws"></i> AWS IoT Core</span>
+                            <span class="tech-tag"><i class="fab fa-aws"></i> AWS Lambda</span>
+                            <span class="tech-tag"><i class="fab fa-python"></i> Python</span>
+                            <span class="tech-tag"><i class="fab fa-aws"></i> DynamoDB</span>
+                            <span class="tech-tag"><i class="fab fa-aws"></i> CloudWatch</span>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    /* Add this to your existing CSS */
+                    .project-card {
+                        transition: all 0.3s ease;
+                        transform-origin: center;
+                        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                    }
+                    
+                    .project-card:hover {
+                        transform: scale(1.05) translateY(-10px);
+                        box-shadow: 0 15px 30px rgba(36, 150, 237, 0.3); /* Docker blue glow */
+                        z-index: 10;
+                        border: 2px solid rgba(36, 150, 237, 0.2);
+                    }
+                    
+                    .project-image i {
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .project-card:hover .project-image i {
+                        transform: scale(1.2);
+                        filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
+                    }
+                    </style>
+                    
+                    <div class="project-card">
+                        <div class="project-image" style="background-color: #2496ED;">  <!-- Docker blue -->
+                            <i class="fab fa-docker"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Containerized Travel Booking Platform</h3>
+                            <div class="project-date">August 2024</div>
+                            <p class="project-description">
+                                Developed a microservices-based travel website using Docker containers for seamless deployment and scaling. 
+                                Implemented container orchestration to manage booking, payment, and recommendation services independently. 
+                                The Dockerized architecture reduced deployment time by 70% and improved resource utilization through 
+                                isolated service containers with optimized Dockerfiles for each component.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag"><i class="fab fa-docker"></i> Docker</span>
+                                <span class="tech-tag"><i class="fas fa-network-wired"></i> Microservices</span>
+                                <span class="tech-tag"><i class="fab fa-node-js"></i> Node.js</span>
+                                <span class="tech-tag"><i class="fas fa-database"></i> MongoDB</span>
+                                <span class="tech-tag"><i class="fas fa-server"></i> Nginx</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                <div class="project-card">
+                    <div class="project-image" style="background-color: #DD0031;">
+                        <i class="fab fa-angular"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Angular Mini Application</h3>
+                        <div class="project-date">February 2019</div>
+                        <p class="project-description">Developed a basic Angular application showcasing core front-end concepts with dynamic counter and basic routing functionality. Implemented data binding and event handling while utilizing Angular CLI for project setup.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag"><i class="fab fa-angular"></i> Angular</span>
+                            <span class="tech-tag"><i class="fab fa-html5"></i> HTML/CSS</span>
+                            <span class="tech-tag"><i class="fab fa-js"></i> JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-container">
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fab fa-java"></i></div>
+                    <div class="skill-name">Java</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fas fa-database"></i></div>
+                    <div class="skill-name">MySQL</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fab fa-python"></i></div>
+                    <div class="skill-name">Python</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fab fa-aws"></i></div>
+                    <div class="skill-name">AWS</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fab fa-microsoft"></i></div>
+                    <div class="skill-name">Azure</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fas fa-cloud"></i></div>
+                    <div class="skill-name">Microservices</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fab fa-docker"></i></div>
+                    <div class="skill-name">Docker</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fab fa-google"></i></div>
+                    <div class="skill-name">GKE</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fas fa-terminal"></i></div>
+                    <div class="skill-name">Ubuntu</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
+                    <div class="skill-name">Git</div>
+                </div>
+                
+   
+                </div>
+              
+            </div>
+        </div>
+    </section>
+    
+    <!-- Certificates Section -->
+    <section id="certificates">
+        <div class="container">
+            <h2 class="section-title">Certificates</h2>
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <h3 class="certificate-title">Microsoft Certified: Azure Administrator Associate (AZ-104)</h3>
+                    <div class="certificate-issuer">
+                        <i class="fab fa-microsoft" style="color: var(--azure-blue);"></i> Microsoft
+                    </div>
+                    <div class="certificate-date">April 2025</div>
+                    <a href="https://learn.microsoft.com/en-us/users/reema-3672/credentials/certification/azure-administrator?tab=credentials-tab" target="_blank" class="certificate-link">
+                        View Certificate <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                
+                <div class="certificate-card">
+                    <h3 class="certificate-title">Java for Beginners</h3>
+                    <div class="certificate-issuer">
+                        <i class="fab fa-java" style="color: #007396;"></i> Udemy
+                    </div>
+                    <div class="certificate-date">April 2025</div>
+                    <a href="https://shorturl.at/qR8Aa" target="_blank" class="certificate-link">
+                        View Certificate <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                
+                <div class="certificate-card">
+                    <h3 class="certificate-title">Architecting with Google Kubernetes Engine: Workloads</h3>
+                    <div class="certificate-issuer">
+                        <i class="fab fa-google" style="color: var(--google-blue);"></i> Coursera
+                    </div>
+                    <div class="certificate-date">April 2025</div>
+                    <a href="https://shorturl.at/PKT8c" target="_blank" class="certificate-link">
+                        View Certificate <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <h3 class="education-degree">Bachelor's Degree</h3>
+                    <div class="education-school">Lovely Professional University</div>
+                    <div class="education-duration">2023 - 2026</div>
+                    <div class="education-details">
+                        <span>Jalandhar, Punjab</span>
+                        <span>CGPA: 6.0</span>
+                    </div>
+                </div>
+                
+                <div class="education-card">
+                    <h3 class="education-degree">Intermediate (PCM)</h3>
+                    <div class="education-school">Shri Mahavir Jain Model Sr. Sec. School</div>
+                    <div class="education-duration">2021 - 2022</div>
+                    <div class="education-details">
+                        <span>Jalandhar, Punjab</span>
+                        <span>Percentage: 85%</span>
+                    </div>
+                </div>
+                
+                <div class="education-card">
+                    <h3 class="education-degree">High School</h3>
+                    <div class="education-school">Shri Mahavir Jain Model Sr. Sec. School</div>
+                    <div class="education-duration">2020 - 2021</div>
+                    <div class="education-details">
+                        <span>Jalandhar, Punjab</span>
+                        <span>Percentage: 79%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="about-content" style="text-align: center;">
+                <p>I'm currently looking for new opportunities in cloud engineering and architecture. Whether you have a question or just want to say hi, I'll do my best to get back to you!</p>
+                <div style="margin-top: 2rem;">
+                    <a href="mailto:Parikumar115588@gmail.com" class="certificate-link" style="font-size: 1.2rem;">
+                        Say Hello <i class="fas fa-paper-plane"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>Reema</h3>
+                <p>Cloud Engineer | AWS & Azure Specialist | Serverless Architect</p>
+                
+                <div class="footer-links">
+                    <a href="#about">About</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/reema12/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Reema9915/" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="mailto:Parikumar115588@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+                
+                <p class="copyright">© 2024 Reema. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Scroll animations
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.timeline-item, .project-card, .skill-item, .certificate-card, .education-card, .about-content, .highlight-item');
+            
+            elements.forEach((element, index) => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Initial check
+        animateOnScroll();
+        
+        // Check on scroll
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
